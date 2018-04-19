@@ -1,0 +1,109 @@
+{
+  "Services": {
+    "cflix": {
+      "Env": [
+        "CFLIX__USELDAP=false", 
+        "CFLIX__STAGE=3"
+      ], 
+      "Image": "cflixcellenza.azurecr.io/cflix/cflix@sha256:e924d0dce3670cae1ce72d288cb39a63f153a769012801a4eb6cc584c08fe05b", 
+      "Networks": [
+        "cflix-main", 
+        "cflix-mysql", 
+        "cflix-imgviewer"
+      ]
+    }, 
+    "cflix.imageviewer": {
+      "Image": "cflixcellenza.azurecr.io/cflix/cflix.imageviewer@sha256:e04c33eddd490e2fc3203f91dae551834d5ab641451913d3cc9ecd31c99cfbc7", 
+      "Networks": [
+        "cflix-imgviewer"
+      ], 
+      "Ports": [
+        {
+          "Port": 22222, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "hackonymousoflix": {
+      "Image": "cflixcellenza.azurecr.io/cflix/hackonymousoflix@sha256:65a73fbc5e6aba9e73b0ba2cb580c035341c8feb2898a0943b5cde80fc01c162", 
+      "Networks": [
+        "hackonymousoflix-main"
+      ], 
+      "Ports": [
+        {
+          "Port": 845, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "mysql": {
+      "Args": [
+        "--character-set-server=utf8mb4", 
+        "--collation-server=utf8mb4_unicode_ci"
+      ], 
+      "Env": [
+        "MYSQL_ROOT_PASSWORD=mysql_password"
+      ], 
+      "Image": "cflixcellenza.azurecr.io/cflix/mysql@sha256:aad6ad82cd5453e7cd8c732d61738de1da513c51fa132823c020592636938750", 
+      "Networks": [
+        "cflix-mysql"
+      ]
+    }, 
+    "postgres": {
+      "Env": [
+        "POSTGRES_PASSWORD=postgres_password", 
+        "POSTGRES_DB=cflix"
+      ], 
+      "Image": "cflixcellenza.azurecr.io/cflix/postgres@sha256:591093e8e23ff72beb3a88a0e30fcf443f0a3e550bb7c0a2a1274c923de169ff", 
+      "Networks": [
+        "cflix-main"
+      ]
+    }, 
+    "redis": {
+      "Image": "redis@sha256:0153c5db97e5852b25c5c4715cf88cff9d9dfd8fef5c4c81df8b4dd1a984abc7", 
+      "Networks": [
+        "cflix-main"
+      ]
+    }, 
+    "reverse-proxy": {
+      "Env": [
+        "CFLIX_URL=cflix", 
+        "HACKONYMOUSOFLIX_URL=hackonymousoflix.com"
+      ], 
+      "Image": "cflixcellenza.azurecr.io/cflix/nginx@sha256:539ba77b9790aac8db40db2ab1fd41df32d6aa38f8f23b180c74a9cab9deae31", 
+      "Networks": [
+        "hackonymousoflix-main", 
+        "cflix-main"
+      ], 
+      "Ports": [
+        {
+          "Port": 80, 
+          "Protocol": "tcp"
+        }, 
+        {
+          "Port": 443, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "robotshop": {
+      "Image": "cflixcellenza.azurecr.io/cflix/robotshop@sha256:940e71eb183e1af8760e6ab8fac94c4fab63ae70ea76fa25dd368a2fe52a3d86", 
+      "Networks": [
+        "hackonymousoflix-robotshop"
+      ], 
+      "Ports": [
+        {
+          "Port": 80, 
+          "Protocol": "tcp"
+        }
+      ]
+    }, 
+    "shoxxbot": {
+      "Image": "cflixcellenza.azurecr.io/cflix/shoxxbot@sha256:624d1e9fbb27ac0e42185ba47910f7e1a3591940722ddcdcc047c549b579bd46", 
+      "Networks": [
+        "hackonymousoflix-robotshop"
+      ]
+    }
+  }, 
+  "Version": "0.1"
+}

@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  reverse-proxy:
+    image: cflixcellenza.azurecr.io/cflix/nginx
+
+  cflix:
+    image: cflixcellenza.azurecr.io/cflix/cflix
+
+  postgres:
+    image: cflixcellenza.azurecr.io/cflix/postgres
+
+  mysql:
+    image: cflixcellenza.azurecr.io/cflix/mysql
+
+  cflix.imageviewer:
+    image: cflixcellenza.azurecr.io/cflix/cflix.imageviewer
+
+  hackonymousoflix:
+    image: cflixcellenza.azurecr.io/cflix/hackonymousoflix
+
+  robotshop:
+    image: cflixcellenza.azurecr.io/cflix/robotshop
+
+  shoxxbot:
+    image: cflixcellenza.azurecr.io/cflix/shoxxbot
